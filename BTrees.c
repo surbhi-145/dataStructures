@@ -1,39 +1,39 @@
 #include <stdio.h>
-#include<math.h>
+#include <math.h>
 #include <stdlib.h>
 
 #define KArr 5
-#define D 4//KArr-1
+#define D 4   //KArr-1
 #define MIN 2 // ceil(KArr/2)
 
 typedef struct BTreeNodeTag
 {
-    int data[D + 1];//An extra data node to make splitting easier
-    struct BTreeNodeTag *ptr[KArr + 1];//an extra pointer node to make splitting easier
+    int data[D + 1];                    //An extra data node to make splitting easier
+    struct BTreeNodeTag *ptr[KArr + 1]; //an extra pointer node to make splitting easier
     int last_data_index;
 
 } BTreeNode;
 
-void printNode(BTreeNode* root)
+void printNode(BTreeNode *root)
 {
-    for(int i=0; i<=root->last_data_index; i+=1)
+    for (int i = 0; i <= root->last_data_index; i += 1)
     {
-        printf("%d ",root->data[i]);
+        printf("%d ", root->data[i]);
     }
 
     printf("\n");
 }
 
-void print(BTreeNode* root)
+void print(BTreeNode *root)
 {
     printNode(root);
-    for (int i = 0; root->ptr[i]!=NULL && i<= root->last_data_index+1; i++)
+    for (int i = 0; root->ptr[i] != NULL && i <= root->last_data_index + 1; i++)
     {
         print(root->ptr[i]);
     }
 }
 
-void printTree(BTreeNode* root)
+void printTree(BTreeNode *root)
 {
     printf("------------------------------\n");
     print(root);
@@ -106,26 +106,26 @@ BTreeNode *split(BTreeNode *root, int median, BTreeNode *parent, int index)
     while (i <= root->last_data_index)
     {
         tmp->data[j] = root->data[i];
-        j+=1;
-        i+=1;
+        j += 1;
+        i += 1;
     }
 
-    if(isLeaf(root)==0)
+    if (isLeaf(root) == 0)
     {
-        i=median+1, j=0;
-        while(i<=root->last_data_index+1)
+        i = median + 1, j = 0;
+        while (i <= root->last_data_index + 1)
         {
-            tmp->ptr[j]=root->ptr[i];
-            i+=1;
-            j+=1;
+            tmp->ptr[j] = root->ptr[i];
+            i += 1;
+            j += 1;
         }
 
-        root = setPointers(root, median+1);
+        root = setPointers(root, median + 1);
     }
 
-    float x=root->last_data_index;
-    root->last_data_index=floor(x/2)-1;
-    tmp->last_data_index=ceil(x/2)-1;
+    float x = root->last_data_index;
+    root->last_data_index = floor(x / 2) - 1;
+    tmp->last_data_index = ceil(x / 2) - 1;
 
     if (parent != NULL)
     {
@@ -134,18 +134,17 @@ BTreeNode *split(BTreeNode *root, int median, BTreeNode *parent, int index)
         while (index <= ptr_length)
         {
             BTreeNode *tmp2 = parent->ptr[index];
-            parent->ptr[index]= tmp;
+            parent->ptr[index] = tmp;
             tmp = tmp2;
-            index+=1;
+            index += 1;
         }
     }
 
     else
     {
-        parent=createNode(data);
-        parent->ptr[0]=root;
-        parent->ptr[1]=tmp;
-
+        parent = createNode(data);
+        parent->ptr[0] = root;
+        parent->ptr[1] = tmp;
     }
 
     return parent;
@@ -190,218 +189,220 @@ BTreeNode *insert(BTreeNode *root, int key)
 
 BTreeNode *insertInTheTree(BTreeNode *root, int key)
 {
-    root=insert(root,key);
-    if(root->last_data_index==D)
+    root = insert(root, key);
+    if (root->last_data_index == D)
     {
         //printf("%d\n",root->last_data_index);
-        int median=D/2;
-        root=split(root,median,NULL,-1);
+        int median = D / 2;
+        root = split(root, median, NULL, -1);
     }
 
     return root;
 }
 
-int searchNode(BTreeNode* node, int key)
+int searchNode(BTreeNode *node, int key)
 {
-    int index=-1;
-    for(int i =0; i<node->last_data_index+1 ; i+=1)
+    int index = -1;
+    for (int i = 0; i < node->last_data_index + 1; i += 1)
     {
-        if(node->data[i]<=key)
-        index=i;
+        if (node->data[i] <= key)
+            index = i;
     }
 
     return index;
 }
 
-BTreeNode* deleteKey(BTreeNode* node,int key)
+BTreeNode *deleteKey(BTreeNode *node, int key)
 {
-    int delete=1;
-    node->last_data_index-=1;
-    for(int i=0; i<=node->last_data_index; i++)
+    int delete = 1;
+    node->last_data_index -= 1;
+    for (int i = 0; i <= node->last_data_index; i++)
     {
-        if(key==node->data[i] || delete==0)
+        if (key == node->data[i] || delete == 0)
         {
-            delete=0;
-            node->data[i]=node->data[i+1];
+            delete = 0;
+            node->data[i] = node->data[i + 1];
         }
     }
 
     return node;
 }
 
-BTreeNode *deleteNode(BTreeNode *node, BTreeNode *child, int dir)//direction of child
+BTreeNode *deleteNode(BTreeNode *node, BTreeNode *child, int dir) //direction of child
 {
-     int pos=node->last_data_index+1;
+    int pos = node->last_data_index + 1;
     for (int i = 0; i <= child->last_data_index; i++)
     {
-        node=insertElement(node,child->data[i]);
+        node = insertElement(node, child->data[i]);
     }
 
-    if(isLeaf(node)==0)
+    if (isLeaf(node) == 0)
     {
-        if(dir==1)
+        if (dir == 1)
         {
-            for (int i = 0; i <= child->last_data_index+1; i++)
+            for (int i = 0; i <= child->last_data_index + 1; i++)
             {
-                node->ptr[pos]=child->ptr[i];
-                pos+=1;
+                node->ptr[pos] = child->ptr[i];
+                pos += 1;
             }
-            
         }
 
         else
         {
-            int shift=child->last_data_index+2;
-            for(int i=pos-1; i>=0; i-=1)
+            int shift = child->last_data_index + 2;
+            for (int i = pos - 1; i >= 0; i -= 1)
             {
-                node->ptr[i+shift]=node->ptr[i];
+                node->ptr[i + shift] = node->ptr[i];
             }
 
-            for (int i = 0; i <= child->last_data_index+1; i++)
+            for (int i = 0; i <= child->last_data_index + 1; i++)
             {
-                node->ptr[i]=child->ptr[i];
+                node->ptr[i] = child->ptr[i];
             }
-
         }
-        
     }
     free(child);
     return node;
-    
 }
 
-BTreeNode *readjustPointers(BTreeNode* parent, int index)
+BTreeNode *readjustPointers(BTreeNode *parent, int index)
 {
 
-    for(int i=index; i<= parent->last_data_index+1; i+=1)
+    for (int i = index; i <= parent->last_data_index + 1; i += 1)
     {
-        parent->ptr[i]=parent->ptr[i+1];
+        parent->ptr[i] = parent->ptr[i + 1];
     }
 
-    for (int i = parent->last_data_index+2; i <= KArr; i++)
+    for (int i = parent->last_data_index + 2; i <= KArr; i++)
     {
-        parent->ptr[i]=NULL;
+        parent->ptr[i] = NULL;
     }
-    
 
-    if(parent->last_data_index==-1)
+    if (parent->last_data_index == -1)
     {
-        BTreeNode* tmp=parent;
-        parent=parent->ptr[0];
+        BTreeNode *tmp = parent;
+        parent = parent->ptr[0];
         free(tmp);
     }
 
     return parent;
 }
 
-BTreeNode *deleteFromNode(BTreeNode* root, int key, BTreeNode* parent, int child_no)
+BTreeNode *deleteFromNode(BTreeNode *root, int key, BTreeNode *parent, int child_no)
 {
-    int element_count=root->last_data_index+1;
-        if(isLeaf(root)==1)
-        {
-            root=deleteKey(root,key);
-            element_count-=1;
-        }
-        
-        
-        if(element_count<MIN)
-        {
-            int sibling1=child_no-1;
-            int sibling2=child_no+1;
-
-            if(sibling1>=0 && parent->ptr[sibling1]->last_data_index+1>MIN)
-            {
-                int index=child_no-1;
-                BTreeNode* node=parent->ptr[sibling1];
-                int data=node->data[root->last_data_index];
-                node->last_data_index-=1;
-                for (int i = root->last_data_index+1 ; i >=0; i--)
-                {
-                    root->ptr[i+1]=root->ptr[i];
-                }
-                root->ptr[0]=node->ptr[node->last_data_index+2];
-                node->ptr[node->last_data_index+2]=NULL;
-                root=insertElement(root,parent->data[index+1]);
-                parent->data[index+1]=data;
-            }
-
-            else if (sibling2<=parent->last_data_index+1 && parent->ptr[sibling2]->last_data_index+1>MIN)
-            {
-                int index=child_no+1;
-                BTreeNode* node=parent->ptr[sibling2];
-                int data=node->data[0];
-                node=deleteKey(node,data);
-                root->ptr[root->last_data_index+1]=node->ptr[0];
-                node=readjustPointers(node,0);
-                root=insertElement(root,parent->data[index-1]);
-                parent->data[index-1]=data;
-            }
-
-            else
-            {
-                int index;
-                if(child_no!=0)
-                {
-                    index=child_no-1;
-                    int data=parent->data[index];
-                    parent=deleteKey(parent,data);
-                    root=insertElement(root,data);
-                    root=deleteNode(root,parent->ptr[index],-1);
-                    parent=readjustPointers(parent,index);
-                   
-                }
-                
-                else
-                {
-                    index=child_no+1;
-                    int data=parent->data[index-1];
-                    parent=deleteKey(parent,data);
-                    parent->ptr[index]=insertElement(parent->ptr[index],data);
-                    parent->ptr[index]=deleteNode(parent->ptr[index],root,1);
-                    parent=readjustPointers(parent,index-1);
-                }
-
-                 if(parent==NULL)
-                    parent=root;
-                
-            }
-            
-        }
-
-        return parent;
-}
-
-BTreeNode* deleteFromTree(BTreeNode* root, int key, BTreeNode* parent, int child_no)
-{
-    int pos=searchNode(root,key);
-
-    if(isLeaf(root)==1)
+    int element_count = root->last_data_index + 1;
+    if (isLeaf(root) == 1)
     {
-        parent=deleteFromNode(root,key,parent,child_no);
+        root = deleteKey(root, key);
+        element_count -= 1;
     }
 
-    else
+    if (element_count < MIN)
     {
-        if(pos!=-1 && root->data[pos]==key)
+        int sibling1 = child_no - 1;
+        int sibling2 = child_no + 1;
+
+        if (sibling1 >= 0 && parent->ptr[sibling1]->last_data_index + 1 > MIN)
         {
-            parent=root;
+            int index = child_no - 1;
+            BTreeNode *node = parent->ptr[sibling1];
+            int data = node->data[root->last_data_index];
+            node->last_data_index -= 1;
+            for (int i = root->last_data_index + 1; i >= 0; i--)
+            {
+                root->ptr[i + 1] = root->ptr[i];
+            }
+            root->ptr[0] = node->ptr[node->last_data_index + 2];
+            node->ptr[node->last_data_index + 2] = NULL;
+            root = insertElement(root, parent->data[index + 1]);
+            parent->data[index + 1] = data;
+        }
+
+        else if (sibling2 <= parent->last_data_index + 1 && parent->ptr[sibling2]->last_data_index + 1 > MIN)
+        {
+            int index = child_no + 1;
+            BTreeNode *node = parent->ptr[sibling2];
+            int data = node->data[0];
+            node = deleteKey(node, data);
+            root->ptr[root->last_data_index + 1] = node->ptr[0];
+            node = readjustPointers(node, 0);
+            root = insertElement(root, parent->data[index - 1]);
+            parent->data[index - 1] = data;
         }
 
         else
         {
-            root=deleteFromTree(root->ptr[pos+1],key,root,pos+1);
-            if (root->last_data_index+1<MIN)
+            int index;
+            if (child_no != 0)
             {
-                parent=deleteFromNode(root,key,parent,child_no);
+                index = child_no - 1;
+                int data = parent->data[index];
+                parent = deleteKey(parent, data);
+                root = insertElement(root, data);
+                root = deleteNode(root, parent->ptr[index], -1);
+                parent = readjustPointers(parent, index);
             }
+
             else
             {
-                parent=root;
+                index = child_no + 1;
+                int data = parent->data[index - 1];
+                parent = deleteKey(parent, data);
+                parent->ptr[index] = insertElement(parent->ptr[index], data);
+                parent->ptr[index] = deleteNode(parent->ptr[index], root, 1);
+                parent = readjustPointers(parent, index - 1);
             }
-            
-            
+
+            if (parent == NULL)
+                parent = root;
         }
-        
+    }
+
+    return parent;
+}
+
+int modifyKey(BTreeNode *node, int pos)
+{
+    int data;
+    while (isLeaf(node) == 0)
+    {
+        node = node->ptr[node->last_data_index + 1];
+    }
+
+    return node->data[node->last_data_index];
+}
+
+BTreeNode *deleteFromTree(BTreeNode *root, int key, BTreeNode *parent, int child_no)
+{
+    int pos = searchNode(root, key);
+
+    if (isLeaf(root) == 1)
+    {
+        parent = deleteFromNode(root, key, parent, child_no);
+    }
+
+    else
+    {
+        if (pos != -1 && root->data[pos] == key)
+        {
+            key = modifyKey(root->ptr[pos], pos);
+            root->data[pos]=key;
+            root = deleteFromTree(root->ptr[pos], key, root, pos);
+        }
+
+        else
+        {
+            root = deleteFromTree(root->ptr[pos + 1], key, root, pos + 1);
+        }
+
+        if (root->last_data_index + 1 < MIN)
+        {
+            parent = deleteFromNode(root, key, parent, child_no);
+        }
+        else
+        {
+            parent = root;
+        }
     }
 
     return parent;
@@ -409,26 +410,26 @@ BTreeNode* deleteFromTree(BTreeNode* root, int key, BTreeNode* parent, int child
 
 int main()
 {
-    BTreeNode* root=NULL;
-    root=insertInTheTree(root,1);
-    root=insertInTheTree(root,5);
-    root=insertInTheTree(root,10);
-    root=insertInTheTree(root,15);
-    root=insertInTheTree(root,2);
-    root=insertInTheTree(root,11);
-    root=insertInTheTree(root,12);
-    root=insertInTheTree(root,13);
-    root=insertInTheTree(root,-1);
-    root=insertInTheTree(root,0);
-    root=insertInTheTree(root,3);
-    root=insertInTheTree(root,16);
-    root=insertInTheTree(root,17);
-    root=insertInTheTree(root,18);
-    root=insertInTheTree(root,19);
-    root=insertInTheTree(root,20);
-    root=insertInTheTree(root,21);
+    BTreeNode *root = NULL;
+    root = insertInTheTree(root, 1);
+    root = insertInTheTree(root, 5);
+    root = insertInTheTree(root, 10);
+    root = insertInTheTree(root, 15);
+    root = insertInTheTree(root, 2);
+    root = insertInTheTree(root, 11);
+    root = insertInTheTree(root, 12);
+    root = insertInTheTree(root, 13);
+    root = insertInTheTree(root, -1);
+    root = insertInTheTree(root, 0);
+    root = insertInTheTree(root, 3);
+    root = insertInTheTree(root, 16);
+    root = insertInTheTree(root, 17);
+    root = insertInTheTree(root, 18);
+    root = insertInTheTree(root, 19);
+    root = insertInTheTree(root, 20);
+    root = insertInTheTree(root, 21);
     printTree(root);
-    root=deleteFromTree(root,-1,NULL,0);
+    root = deleteFromTree(root, 19, NULL, 0);
     printTree(root);
     return 0;
 }
