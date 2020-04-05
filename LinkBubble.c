@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 typedef int datatype;
-typedef enum{FAILURE,SUCCESS}statuscode;
+typedef enum{Failure,Success}statuscode;
 
 typedef struct NodeTag
 {

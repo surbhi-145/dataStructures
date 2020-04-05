@@ -10,7 +10,7 @@ typedef struct
     int top;//stores index of last value inserted.
 }Stack;
 
-typedef enum{FAILURE, SUCCESS}statuscode;
+typedef enum{Failure, Success}statuscode;
 
 /**void initialize(Stack** sptr, int size)
 {
@@ -22,11 +22,11 @@ typedef enum{FAILURE, SUCCESS}statuscode;
 
 statuscode isFull(Stack* ptr)
 {
-    statuscode sc= FAILURE;
+    statuscode sc= Failure;
 
     if(ptr->top==ptr->capacity-1)
     {
-        sc=SUCCESS;
+        sc=Success;
     }
 
     return sc;
@@ -34,11 +34,11 @@ statuscode isFull(Stack* ptr)
 
 statuscode isEmpty(Stack* ptr)
 {
-    statuscode sc=FAILURE;
+    statuscode sc=Failure;
 
     if(ptr->top==-1)
     {
-        sc=SUCCESS;
+        sc=Success;
     }
 
     return sc;
@@ -46,10 +46,10 @@ statuscode isEmpty(Stack* ptr)
 
 statuscode push(Stack** sptr, datatype d)
 {
-    statuscode sc= SUCCESS;
+    statuscode sc= Success;
 
-    if(isFull(*sptr)==SUCCESS)
-    sc=FAILURE;
+    if(isFull(*sptr) == Success)
+    sc=Failure;
 
     else
     {
@@ -62,10 +62,10 @@ statuscode push(Stack** sptr, datatype d)
 
 statuscode pop(Stack** sptr, datatype* d)
 {
-    statuscode sc= SUCCESS;
+    statuscode sc= Success;
 
-    if(isEmpty(*sptr)==SUCCESS)
-    sc=FAILURE;
+    if(isEmpty(*sptr) == Success)
+    sc=Failure;
 
     else
     {
@@ -85,9 +85,9 @@ typedef struct
 
 statuscode enqueue(Queue** ptr, datatype d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
     if(isFull((*ptr)->s1)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -100,9 +100,9 @@ statuscode enqueue(Queue** ptr, datatype d)
 
 statuscode dequeue(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
     if(isEmpty((*ptr)->s1)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -130,9 +130,9 @@ statuscode dequeue(Queue** ptr, datatype* d)
 
 statuscode front(Queue** ptr, datatype* d)
 {
-     statuscode sc=SUCCESS;
+     statuscode sc=Success;
     if(isEmpty((*ptr)->s1)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -157,9 +157,9 @@ statuscode front(Queue** ptr, datatype* d)
 
 statuscode end(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
     if(isEmpty((*ptr)->s1)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {

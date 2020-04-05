@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 typedef int datatype;
-typedef enum{FAILURE,SUCCESS}statuscode;
+typedef enum{Failure,Success}statuscode;
 
 typedef struct NodeTag
 {
@@ -24,11 +24,11 @@ void initialize(Queue** ptr)
 
 statuscode isEmpty(Queue** ptr)
 {
-    statuscode sc=FAILURE;
+    statuscode sc=Failure;
 
     if (((*ptr)->end==NULL) && ((*ptr)->front==NULL))
     {
-        sc=SUCCESS;
+        sc=Success;
     }
     
     return sc;
@@ -36,10 +36,10 @@ statuscode isEmpty(Queue** ptr)
 
 statuscode front(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isEmpty(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -52,10 +52,10 @@ statuscode front(Queue** ptr, datatype* d)
 
 statuscode end(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isEmpty(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -67,13 +67,13 @@ statuscode end(Queue** ptr, datatype* d)
 
 statuscode enqueue(Queue** ptr, datatype d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     Node* nptr;
         nptr=(Node*)malloc(sizeof(Node));
         if (nptr==NULL)
         {
-            sc=FAILURE;
+            sc=Failure;
         }
         
 
@@ -106,10 +106,10 @@ statuscode enqueue(Queue** ptr, datatype d)
 
 statuscode dequeue(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isEmpty(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {

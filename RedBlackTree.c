@@ -13,9 +13,9 @@ typedef struct nodeTag
     int data;
     struct nodeTag *left, *right, *parent;
     COLOUR colour;
-} TreeNode;
+} treeNode;
 
-void inorder(TreeNode *root)
+void inorder(treeNode *root)
 {
     if (root != NULL)
     {
@@ -29,7 +29,7 @@ void inorder(TreeNode *root)
     }
 }
 
-void printTree(TreeNode *root)
+void printTree(treeNode *root)
 {
     printf("-------------------------------\n");
     if (root != NULL)
@@ -43,7 +43,7 @@ void printTree(TreeNode *root)
     printf("-------------------------------\n");
 }
 
-TreeNode* fixParents(TreeNode* root)
+treeNode* fixParents(treeNode* root)
 {
     if(root->left!=NULL)
     {
@@ -60,15 +60,15 @@ TreeNode* fixParents(TreeNode* root)
     return root;
 }
 
-void rotateLeft(TreeNode **s, TreeNode* node)
+void rotateLeft(treeNode **s, treeNode* node)
 {
-    TreeNode* parent=*s;
-    TreeNode* p=NULL;
+    treeNode* parent=*s;
+    treeNode* p=NULL;
     if(parent->left==node)
     p=parent->left;
     else
     p=parent->right;
-    TreeNode *q = p;
+    treeNode *q = p;
     if (p != NULL && p->right != NULL)
     {
         q = p->right;
@@ -88,15 +88,15 @@ void rotateLeft(TreeNode **s, TreeNode* node)
     
 }
 
-void rotateRight(TreeNode **s, TreeNode* node)
+void rotateRight(treeNode **s, treeNode* node)
 {
-    TreeNode* parent=*s;
-    TreeNode* p=NULL;
+    treeNode* parent=*s;
+    treeNode* p=NULL;
     if(parent->left==node)
     p=parent->left;
     else
     p=parent->right;
-    TreeNode *q = p;
+    treeNode *q = p;
     if (p != NULL && p->left != NULL)
     {
         q = p->left;
@@ -115,9 +115,9 @@ void rotateRight(TreeNode **s, TreeNode* node)
     *s=fixParents(*s);
 }
 
-TreeNode *createNode(int key, TreeNode *parent, COLOUR colour)
+treeNode *createNode(int key, treeNode *parent, COLOUR colour)
 {
-    TreeNode *node = (TreeNode *)malloc(sizeof(TreeNode));
+    treeNode *node = (treeNode *)malloc(sizeof(treeNode));
     node->data = key;
     node->left = NULL;
     node->right = NULL;
@@ -127,7 +127,7 @@ TreeNode *createNode(int key, TreeNode *parent, COLOUR colour)
     return node;
 }
 
-TreeNode *BSTInsert(TreeNode *root, int key, TreeNode **insertedNode)
+treeNode *BSTInsert(treeNode *root, int key, treeNode **insertedNode)
 {
     if (root == NULL)
     {
@@ -137,7 +137,7 @@ TreeNode *BSTInsert(TreeNode *root, int key, TreeNode **insertedNode)
 
     else
     {
-        TreeNode *node;
+        treeNode *node;
         if (key < root->data)
         {
             root->left = BSTInsert(root->left, key, insertedNode);
@@ -158,16 +158,16 @@ TreeNode *BSTInsert(TreeNode *root, int key, TreeNode **insertedNode)
     return root;
 }
 
-void swapColours(TreeNode **node1, TreeNode **node2)
+void swapColours(treeNode **node1, treeNode **node2)
 {
     COLOUR temp = (*node1)->colour;
     (*node1)->colour = (*node2)->colour;
     (*node2)->colour = temp;
 }
 
-TreeNode *searchValue(TreeNode *root, int key)
+treeNode *searchValue(treeNode *root, int key)
 {
-    TreeNode *node = NULL;
+    treeNode *node = NULL;
     if (root->data == key)
         node = root;
     else if (key < root->data)
@@ -178,10 +178,10 @@ TreeNode *searchValue(TreeNode *root, int key)
     return node;
 }
 
-void *fixViolation(TreeNode **root)
+void *fixViolation(treeNode **root)
 {
-    TreeNode *ret_val;
-    TreeNode *parent = (*root)->parent;
+    treeNode *ret_val;
+    treeNode *parent = (*root)->parent;
     if (parent == NULL)
     {
        (*root)->colour = BLACK;
@@ -189,9 +189,9 @@ void *fixViolation(TreeNode **root)
 
     else if (parent->colour == RED)
     {
-        TreeNode *grandparent = parent->parent;//(*root)->parent->parent
-        TreeNode *sibling = NULL;
-        TreeNode* temp=grandparent->parent;//(*root)->parent->parent->parent
+        treeNode *grandparent = parent->parent;//(*root)->parent->parent
+        treeNode *sibling = NULL;
+        treeNode* temp=grandparent->parent;//(*root)->parent->parent->parent
         if (grandparent->left == parent)
         {
             
@@ -258,17 +258,17 @@ void *fixViolation(TreeNode **root)
     }
 }
 
-void insert(TreeNode **root, int key)
+void insert(treeNode **root, int key)
 {
-    TreeNode *newNode = NULL;
+    treeNode *newNode = NULL;
     *root = BSTInsert(*root, key, &newNode);
     fixViolation(&newNode);
     *root=fixParents(*root);
 }
 
-TreeNode *newNode(TreeNode *node)
+treeNode *newNode(treeNode *node)
 {
-    TreeNode *child = NULL;
+    treeNode *child = NULL;
 
     if (node->left != NULL)
         child = node->left;
@@ -278,9 +278,9 @@ TreeNode *newNode(TreeNode *node)
     return child;
 }
 
-TreeNode *getSibling(TreeNode *parent, TreeNode *node)
+treeNode *getSibling(treeNode *parent, treeNode *node)
 {
-    TreeNode *sibling = NULL;
+    treeNode *sibling = NULL;
     if (parent != NULL)
     {
         if (parent->left == node)
@@ -293,7 +293,7 @@ TreeNode *getSibling(TreeNode *parent, TreeNode *node)
     return sibling;
 }
 
-TreeNode *freeNode(TreeNode *parent, TreeNode *node, TreeNode *child)
+treeNode *freeNode(treeNode *parent, treeNode *node, treeNode *child)
 {
     if (parent == NULL)
         parent = child;
@@ -314,11 +314,11 @@ TreeNode *freeNode(TreeNode *parent, TreeNode *node, TreeNode *child)
     return parent;
 }
 
-void fixDoubleBlack(TreeNode **root, TreeNode **p, TreeNode **s)
+void fixDoubleBlack(treeNode **root, treeNode **p, treeNode **s)
 {
-    TreeNode *node = *root;
-    TreeNode *parent = *p;
-    TreeNode *sibling = *s;
+    treeNode *node = *root;
+    treeNode *parent = *p;
+    treeNode *sibling = *s;
     if (sibling != NULL && sibling->colour == BLACK)
     {
         if (sibling->left != NULL && sibling->left->colour == RED)
@@ -334,7 +334,7 @@ void fixDoubleBlack(TreeNode **root, TreeNode **p, TreeNode **s)
                 parent->colour == BLACK;
             else
             {
-                TreeNode *temp = getSibling(parent->parent, parent);
+                treeNode *temp = getSibling(parent->parent, parent);
                 fixDoubleBlack(&parent, &(parent->parent), &temp);
             }
         }
@@ -349,7 +349,7 @@ void fixDoubleBlack(TreeNode **root, TreeNode **p, TreeNode **s)
                 parent->colour == BLACK;
             else
             {
-                TreeNode *temp = getSibling(parent->parent, parent);
+                treeNode *temp = getSibling(parent->parent, parent);
                 fixDoubleBlack(&parent, &(parent->parent), &temp);
             }
         }
@@ -369,7 +369,7 @@ void fixDoubleBlack(TreeNode **root, TreeNode **p, TreeNode **s)
             parent->left->colour = BLACK;
         }
 
-        TreeNode *temp = getSibling(parent, node);
+        treeNode *temp = getSibling(parent, node);
         fixDoubleBlack(root, p, &temp);
     }
 
@@ -379,20 +379,20 @@ void fixDoubleBlack(TreeNode **root, TreeNode **p, TreeNode **s)
 
 }
 
-void swapValues(TreeNode **node1, TreeNode **node2)
+void swapValues(treeNode **node1, treeNode **node2)
 {
     int val = (*node1)->data;
     (*node1)->data = (*node2)->data;
     (*node2)->data = val;
 }
 
-TreeNode *deleteNode(TreeNode **root)
+treeNode *deleteNode(treeNode **root)
 {
-    TreeNode *node = *root;
-    TreeNode *parent = node->parent;
-    TreeNode *child = newNode(node);
-    TreeNode *sibling = getSibling(parent, node);
-    TreeNode *node_other_child = getSibling(node, child);
+    treeNode *node = *root;
+    treeNode *parent = node->parent;
+    treeNode *child = newNode(node);
+    treeNode *sibling = getSibling(parent, node);
+    treeNode *node_other_child = getSibling(node, child);
     if (node_other_child == NULL)
     {
         int double_black = 0; //=1 when it is double black
@@ -433,9 +433,9 @@ TreeNode *deleteNode(TreeNode **root)
     return parent;
 }
 
-void delete (TreeNode **root, int key)
+void delete (treeNode **root, int key)
 {
-    TreeNode *node = searchValue(*root, key);
+    treeNode *node = searchValue(*root, key);
     //printTree(node->parent);
     if (node == *root)
         *root = deleteNode(&node);
@@ -445,7 +445,7 @@ void delete (TreeNode **root, int key)
 
 int main()
 {
-    TreeNode *root = NULL;
+    treeNode *root = NULL;
     insert(&root, 3);
     insert(&root, 1);
     insert(&root, 4);
@@ -456,7 +456,7 @@ int main()
     //printf("%d\n",root->data);
     //printf("%d %d\n",root->left->data,root->right->data);
     delete (&root, 4);
-    /**TreeNode* temp=root->right;
+    /**treeNode* temp=root->right;
     printf("%d\n",temp->data);**/
     printTree(root);
     return 0;

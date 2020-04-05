@@ -4,8 +4,8 @@
 
 typedef enum 
 {
-    FAILURE,
-    SUCCESS
+    Failure,
+    Success
 }statuscode;
 
 typedef struct value
@@ -33,7 +33,7 @@ void initialize()
 
 statuscode insert_linear(int d)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     int index = d % ARRSIZE;
     while (index < ARRSIZE && arr[index].flag == 1)
     {
@@ -48,7 +48,7 @@ statuscode insert_linear(int d)
 
     else
     {
-        sc = FAILURE;
+        sc = Failure;
     }
 
     return sc;
@@ -56,7 +56,7 @@ statuscode insert_linear(int d)
 
 statuscode delete_linear(int d)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     int index = d % ARRSIZE;
     int flag=1;
 
@@ -82,14 +82,14 @@ statuscode delete_linear(int d)
 
     if (flag!=0)
     {
-        sc=FAILURE;
+        sc=Failure;
     }
     
     return sc;
 }
 statuscode search_linear(int d, int *i)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     int index = d % ARRSIZE;
     int flag=1;
 
@@ -115,7 +115,7 @@ statuscode search_linear(int d, int *i)
 
     if (flag!=0)
     {
-        sc=FAILURE;
+        sc=Failure;
     }
     
     return sc;
@@ -163,7 +163,7 @@ void linear()
 
 statuscode insert_quadratic(int d)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     int index = d % ARRSIZE;
     int k=1;
     while (index < ARRSIZE && arr[index].flag == 1)
@@ -180,7 +180,7 @@ statuscode insert_quadratic(int d)
 
     else
     {
-        sc = FAILURE;
+        sc = Failure;
     }
 
     return sc;
@@ -188,7 +188,7 @@ statuscode insert_quadratic(int d)
 
 statuscode delete_quadratic(int d)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     int index = d % ARRSIZE;
     int flag=1;
     int k=1;
@@ -216,7 +216,7 @@ statuscode delete_quadratic(int d)
 
     if (flag!=0)
     {
-        sc=FAILURE;
+        sc=Failure;
     }
     
     return sc;
@@ -224,7 +224,7 @@ statuscode delete_quadratic(int d)
 
 statuscode search_quadratic(int d, int *i)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     int index = d % ARRSIZE;
     int flag=1;
     int k=1;
@@ -252,7 +252,7 @@ statuscode search_quadratic(int d, int *i)
 
     if (flag!=0)
     {
-        sc=FAILURE;
+        sc=Failure;
     }
     
     return sc;
@@ -321,12 +321,12 @@ void initialize_bucket()
 
 statuscode insert_bucket(int d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
     int index=d%ARRSIZE;
     Node* new=(Node*)malloc(sizeof(Node));
     if (new==NULL)
     {
-        sc=FAILURE;
+        sc=Failure;
     }
     
     else 
@@ -342,7 +342,7 @@ statuscode insert_bucket(int d)
 
 statuscode delete_bucket(int d)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     int index = d % ARRSIZE;
     int flag=0;
 
@@ -381,7 +381,7 @@ statuscode delete_bucket(int d)
 
     if (flag!=1)
     {
-        sc=FAILURE;
+        sc=Failure;
     }
     
     return sc;
@@ -390,7 +390,7 @@ statuscode delete_bucket(int d)
 
 statuscode search_bucket(int d)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     int index = d % ARRSIZE;
     int flag=0;
 
@@ -415,7 +415,7 @@ statuscode search_bucket(int d)
 
     if (flag!=1)
     {
-        sc=FAILURE;
+        sc=Failure;
     }
     
     return sc;

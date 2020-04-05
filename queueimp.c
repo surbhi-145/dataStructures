@@ -1,7 +1,7 @@
 #include<stdio.h>
 #define MAX_SIZE 100
 typedef int itemtype;
-typedef enum{FAILURE,SUCCESS} status_code;
+typedef enum{Failure,Success} status_code;
 typedef struct
 {
     itemtype items[MAX_SIZE];
@@ -31,10 +31,10 @@ int isQueueFull(QUEUE *qptr)
 
 status_code push(itemtype e,QUEUE *qptr)
 {
-    status_code retval=SUCCESS;
+    status_code retval=Success;
     if(isQueueFull(qptr))
     {
-        retval=FAILURE;
+        retval=Failure;
     }
     else
     {
@@ -60,10 +60,10 @@ int isQueueEmpty(QUEUE *qptr)
 
 status_code pop(itemtype *e,QUEUE *qptr)
 {
-    status_code retval=SUCCESS;
+    status_code retval=Success;
     if(isQueueEmpty(qptr))
     {
-        retval=FAILURE;
+        retval=Failure;
     }
     else
     {
@@ -89,7 +89,7 @@ int main()
     sc=pop(&e3,&q);
     printf("%d\n%d\n%d\n",e1,e2,e3);
     sc=pop(&e1,&q);
-    if(sc==FAILURE)
+    if(sc == Failure)
     {
         printf("queue was empty\n");
     }

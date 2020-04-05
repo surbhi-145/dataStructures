@@ -8,9 +8,9 @@ typedef struct TNode
     struct TNode *right;
     int height;
 
-} TreeNode;
+} treeNode;
 
-void inorder(TreeNode *root)
+void inorder(treeNode *root)
 {
     if (root != NULL)
     {
@@ -26,7 +26,7 @@ int maxH(int h1, int h2)
     return m;
 }
 
-int height(TreeNode *node)
+int height(treeNode *node)
 {
     int h = 0;
     if (node != NULL)
@@ -35,16 +35,16 @@ int height(TreeNode *node)
     return h;
 }
 
-TreeNode *rotateLeft(TreeNode *p)
+treeNode *rotateLeft(treeNode *p)
 {
-    TreeNode *q = p;
+    treeNode *q = p;
     if (p != NULL && p->right != NULL)
     {
         q = p->right;
         p->right = q->left;
         q->left = p;
 
-        TreeNode *t = q->left;
+        treeNode *t = q->left;
         t->height = maxH(height(t->left), height(t->right)) + 1;
         q->height = maxH(height(q->left), height(q->right)) + 1;
     }
@@ -52,16 +52,16 @@ TreeNode *rotateLeft(TreeNode *p)
     return q;
 }
 
-TreeNode *rotateRight(TreeNode *p)
+treeNode *rotateRight(treeNode *p)
 {
-    TreeNode *q = p;
+    treeNode *q = p;
     if (p != NULL && p->left != NULL)
     {
         q = p->left;
         p->left = q->right;
         q->right = p;
 
-        TreeNode *t = q->right;
+        treeNode *t = q->right;
 
         t->height = maxH(height(t->left), height(t->right)) + 1;
         q->height = maxH(height(q->left), height(q->right)) + 1;
@@ -70,9 +70,9 @@ TreeNode *rotateRight(TreeNode *p)
     return q;
 }
 
-TreeNode *createNode(int key)
+treeNode *createNode(int key)
 {
-    TreeNode *node = (TreeNode *)malloc(sizeof(TreeNode));
+    treeNode *node = (treeNode *)malloc(sizeof(treeNode));
     node->data = key;
     node->left = NULL;
     node->right = NULL;
@@ -81,7 +81,7 @@ TreeNode *createNode(int key)
     return node;
 }
 
-int getBalance(TreeNode *node)
+int getBalance(treeNode *node)
 {
     int ret_val = 0;
     if (node != NULL)
@@ -93,7 +93,7 @@ int getBalance(TreeNode *node)
     return ret_val;
 }
 
-TreeNode *insert(TreeNode *root, int key)
+treeNode *insert(treeNode *root, int key)
 {
 
     if (root == NULL)
@@ -129,9 +129,9 @@ TreeNode *insert(TreeNode *root, int key)
     return root;
 }
 
-TreeNode *minValueNode(TreeNode *node)
+treeNode *minValueNode(treeNode *node)
 {
-    TreeNode *current = node;
+    treeNode *current = node;
 
     while (current->left != NULL)
         current = current->left;
@@ -139,7 +139,7 @@ TreeNode *minValueNode(TreeNode *node)
     return current;
 }
 
-TreeNode *delete (TreeNode *root, int key)
+treeNode *delete (treeNode *root, int key)
 {
     if (root != NULL)
     {
@@ -153,7 +153,7 @@ TreeNode *delete (TreeNode *root, int key)
         {
             if (root->left == NULL || root->right == NULL)
             {
-                TreeNode *tmp = root->left ? root->left : root->right;
+                treeNode *tmp = root->left ? root->left : root->right;
 
                 if (tmp == NULL)
                 {
@@ -171,7 +171,7 @@ TreeNode *delete (TreeNode *root, int key)
 
             else
             {
-                TreeNode *tmp = minValueNode(root->right);
+                treeNode *tmp = minValueNode(root->right);
 
                 root->data = tmp->data;
 
@@ -207,7 +207,7 @@ TreeNode *delete (TreeNode *root, int key)
 int main()
 {
 
-    TreeNode *root = NULL;
+    treeNode *root = NULL;
     root = insert(root, 10);
     root = insert(root, 5);
     root = insert(root, 15);

@@ -4,8 +4,8 @@
 typedef int datatype;
 typedef enum
 {
-    FAILURE,
-    SUCCESS
+    Failure,
+    Success
 } statuscode;
 
 typedef struct NodeTag
@@ -24,10 +24,10 @@ void initialize(Node **ptr, Node **end, datatype d)
 
 statuscode insertAtStart(datatype d, Node **ptr)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     Node *nptr = (Node *)malloc(sizeof(Node));
     if (nptr == NULL)
-        sc = FAILURE;
+        sc = Failure;
     else
     {
         if (*ptr == NULL)
@@ -50,10 +50,10 @@ statuscode insertAtStart(datatype d, Node **ptr)
 
 statuscode insertAtEnd(Node **ptr, datatype d)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     Node *nptr = (Node *)malloc(sizeof(Node));
     if (nptr == NULL)
-        sc = FAILURE;
+        sc = Failure;
     else
     {
         if ((*ptr) == NULL)
@@ -77,9 +77,9 @@ statuscode insertAtEnd(Node **ptr, datatype d)
 
 statuscode deleteAtStart(Node **ptr, datatype *d)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     if (*ptr == NULL)
-        sc = FAILURE;
+        sc = Failure;
     else
     {
         *d = (*ptr)->data;
@@ -101,9 +101,9 @@ statuscode deleteAtStart(Node **ptr, datatype *d)
 
 statuscode deleteAtEnd(Node **start, Node **end, datatype *d)
 {
-    statuscode sc = SUCCESS;
+    statuscode sc = Success;
     if ((*start) == NULL)
-        sc = FAILURE;
+        sc = Failure;
 
     else
     {

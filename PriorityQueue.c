@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #define MAX 10
 typedef int datatype;
-typedef enum{FAILURE,SUCCESS}statuscode;
+typedef enum{Failure,Success}statuscode;
 
 typedef struct NodeTag
 {
@@ -30,11 +30,11 @@ void initialize(Queue** ptr)
 
 statuscode isEmpty(Queue** ptr)
 {
-    statuscode sc=FAILURE;
+    statuscode sc=Failure;
 
     if (((*ptr)->end==NULL) && ((*ptr)->front==NULL))
     {
-        sc=SUCCESS;
+        sc=Success;
     }
     
     return sc;
@@ -42,10 +42,10 @@ statuscode isEmpty(Queue** ptr)
 
 statuscode front(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isEmpty(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -58,10 +58,10 @@ statuscode front(Queue** ptr, datatype* d)
 
 statuscode end(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isEmpty(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -73,13 +73,13 @@ statuscode end(Queue** ptr, datatype* d)
 
 statuscode enqueue(Queue** ptr, datatype d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     Node* nptr;
         nptr=(Node*)malloc(sizeof(Node));
         if (nptr==NULL)
         {
-            sc=FAILURE;
+            sc=Failure;
         }
         
 
@@ -112,10 +112,10 @@ statuscode enqueue(Queue** ptr, datatype d)
 
 statuscode dequeue(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isEmpty(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -145,7 +145,7 @@ void initializePQ(priorityQueue** pq)
 
 statuscode insertPQ(int priority, datatype data, priorityQueue* pq)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     sc=enqueue(&pq->priority[priority],data);
 
@@ -155,11 +155,11 @@ statuscode insertPQ(int priority, datatype data, priorityQueue* pq)
 
 statuscode deletePQ(datatype* d,priorityQueue* pq)
 {
-    statuscode sc=FAILURE;
+    statuscode sc=Failure;
     datatype data;
     for (int i = 0; i < MAX; i++)
     {
-        if (isEmpty(&(pq->priority[i]))==FAILURE)
+        if (isEmpty(&(pq->priority[i])) == Failure)
         {
             sc=dequeue(&(pq->priority[i]),&data);
             *d=data;

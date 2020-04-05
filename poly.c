@@ -5,8 +5,8 @@
 typedef int datatype;
 typedef enum
 {
-    FAILURE,
-    SUCCESS
+    Failure,
+    Success
 } statuscode;
 
 typedef struct poly

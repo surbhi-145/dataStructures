@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 typedef int datatype;
-typedef enum{FAILURE,SUCCESS}statuscode;
+typedef enum{Failure,Success}statuscode;
 
 typedef struct NodeTag
 {
@@ -42,12 +42,12 @@ void initialize(Stack** ptr)
 
 statuscode push(Stack** sptr, datatype d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     Node* nptr=MakeNode(d);
     if (nptr==NULL)
     {
-        sc=FAILURE;
+        sc=Failure;
     }
 
     else
@@ -64,11 +64,11 @@ statuscode pop(Stack** sptr, datatype* d)
 {
     Node* ptr;
 
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if ((*sptr)->top==NULL)
     {
-        sc=FAILURE;
+        sc=Failure;
     }
     
     else
@@ -89,7 +89,7 @@ int main() {
     initialize(&stack);
     statuscode sc;
     sc=push(&stack,12);
-    if(sc==SUCCESS)
+    if(sc == Success)
     {
         printf("%d\n",(stack->top->data));
     }
@@ -100,7 +100,7 @@ int main() {
     sc=push(&stack,10);
     sc=push(&stack,5);
     sc=pop(&stack,&d);
-    if(sc==SUCCESS)
+    if(sc == Success)
     {
         printf("%d\n",d);
     }

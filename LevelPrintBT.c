@@ -4,28 +4,28 @@
 #define datatype int
 typedef enum
 {
-    FAILURE,
-    SUCCESS
+    Failure,
+    Success
 } statuscode;
 typedef struct TNode
 {
     datatype data;
     struct TNode *left;
     struct TNode *right;
-} TreeNode;
+} treeNode;
 
 typedef struct Queue
 {
-    TreeNode *tree_node;
+    treeNode *tree_node;
     struct Queue *next;
 } Queue;
 
-statuscode insert(datatype d, TreeNode **root)
+statuscode insert(datatype d, treeNode **root)
 {
-    statuscode sc = SUCCESS;
-    TreeNode *p = *root;
-    TreeNode *prev = NULL;
-    TreeNode *node = (TreeNode *)malloc(sizeof(TreeNode));
+    statuscode sc = Success;
+    treeNode *p = *root;
+    treeNode *prev = NULL;
+    treeNode *node = (treeNode *)malloc(sizeof(treeNode));
     node->data = d;
     node->left = NULL;
     node->right = NULL;
@@ -53,7 +53,7 @@ statuscode insert(datatype d, TreeNode **root)
     return sc;
 }
 
-void inorder(TreeNode *root)
+void inorder(treeNode *root)
 {
     if (root != NULL)
     {
@@ -63,7 +63,7 @@ void inorder(TreeNode *root)
     }
 }
 
-void preorder(TreeNode *root)
+void preorder(treeNode *root)
 {
     if (root != NULL)
     {
@@ -73,7 +73,7 @@ void preorder(TreeNode *root)
     }
 }
 
-void postorder(TreeNode *root)
+void postorder(treeNode *root)
 {
     if (root != NULL)
     {
@@ -150,7 +150,7 @@ void LevelPrint(Queue *start, Queue *end)
 
 int main()
 {
-    TreeNode *root = NULL;
+    treeNode *root = NULL;
     root = NULL;
     statuscode sc;
     sc = insert(10, &root);

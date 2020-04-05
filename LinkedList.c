@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 typedef int datatype;
-typedef enum{FAILURE,SUCCESS}statuscode;
+typedef enum{Failure,Success}statuscode;
 
 typedef struct NodeTag
 {
@@ -19,10 +19,10 @@ void initialize(Node** ptr,Node** end, datatype d)
 
 statuscode insertAtStart(datatype d, Node** ptr, Node** end)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
     Node* nptr=(Node*)malloc(sizeof(Node));
     if(nptr==NULL)
-    sc=FAILURE;
+    sc=Failure;
     else
     {
         if(*ptr==NULL)
@@ -48,10 +48,10 @@ statuscode insertAtStart(datatype d, Node** ptr, Node** end)
 
 statuscode insertAtEnd(Node** ptr, datatype d, Node** start)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
     Node* nptr=(Node*)malloc(sizeof(Node));
     if(nptr==NULL)
-    sc=FAILURE;
+    sc=Failure;
     else
     {
         if ((*ptr)==NULL)
@@ -77,9 +77,9 @@ statuscode insertAtEnd(Node** ptr, datatype d, Node** start)
 
 statuscode deleteAtStart(Node** ptr, datatype* d, Node** end)
 {
-    statuscode sc= SUCCESS;
+    statuscode sc= Success;
     if(*ptr==NULL)
-    sc=FAILURE;
+    sc=Failure;
     else
     {
         *d=(*ptr)->data;
@@ -106,9 +106,9 @@ statuscode deleteAtStart(Node** ptr, datatype* d, Node** end)
 
     statuscode deleteAtEnd(Node** start, Node** end, datatype* d)
     {
-        statuscode sc=SUCCESS;
+        statuscode sc=Success;
         if((*start)==NULL)
-        sc=FAILURE;
+        sc=Failure;
 
         else
         {

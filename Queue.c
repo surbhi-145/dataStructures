@@ -2,7 +2,7 @@
 #include<stdlib.h>
 
 typedef int datatype;
-typedef enum{FAILURE,SUCCESS}statuscode;
+typedef enum{Failure,Success}statuscode;
 
 //It is  a circular queue.
 typedef struct 
@@ -24,29 +24,29 @@ void initialize(Queue** ptr, int size)
 
 statuscode isFull(Queue** ptr)
 {
-    statuscode sc=FAILURE;
+    statuscode sc=Failure;
 
     if((*ptr)->start==((*ptr)->end+1)%(*ptr)->capacity && (*ptr)->end!=-1) // Be careful
-    sc= SUCCESS;
+    sc= Success;
 
     return sc;
 }
 statuscode isEmpty(Queue** ptr)
 {
-    statuscode sc=FAILURE;
+    statuscode sc=Failure;
 
     if((*ptr)->start==((*ptr)->end+1)%(*ptr)->capacity && (*ptr)->end==-1)//Be careful
-    sc=SUCCESS;
+    sc=Success;
 
     return sc;
 }
 
 statuscode front(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isEmpty(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -58,10 +58,10 @@ statuscode front(Queue** ptr, datatype* d)
 }
 statuscode end(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isEmpty(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -72,10 +72,10 @@ statuscode end(Queue** ptr, datatype* d)
 }
 statuscode enqueue(Queue** ptr, datatype d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isFull(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {
@@ -90,10 +90,10 @@ statuscode enqueue(Queue** ptr, datatype d)
 
 statuscode dequeue(Queue** ptr, datatype* d)
 {
-    statuscode sc=SUCCESS;
+    statuscode sc=Success;
 
     if(isEmpty(ptr)==1)
-    sc=FAILURE;
+    sc=Failure;
 
     else
     {

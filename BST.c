@@ -7,13 +7,13 @@ typedef struct TNode
     struct TNode *left;
     struct TNode *right;
 
-} TreeNode;
+} treeNode;
 
-void insert(int d, TreeNode **root)
+void insert(int d, treeNode **root)
 {
-    TreeNode *p = *root;
-    TreeNode *prev = NULL;
-    TreeNode *node = (TreeNode *)malloc(sizeof(TreeNode));
+    treeNode *p = *root;
+    treeNode *prev = NULL;
+    treeNode *node = (treeNode *)malloc(sizeof(treeNode));
     node->data = d;
     node->left = NULL;
     node->right = NULL;
@@ -39,7 +39,7 @@ void insert(int d, TreeNode **root)
     }
 }
 
-void search(TreeNode *root, int key)
+void search(treeNode *root, int key)
 {
 
     int flag = 0;
@@ -73,10 +73,10 @@ void search(TreeNode *root, int key)
     }
 }
 
-void deleteNode(TreeNode **p)
+void deleteNode(treeNode **p)
 {
-    TreeNode *ptr = (*p);
-    TreeNode *del=(*p);
+    treeNode *ptr = (*p);
+    treeNode *del=(*p);
     if (ptr->left == NULL)
     {
         *p = ptr->right;
@@ -84,7 +84,7 @@ void deleteNode(TreeNode **p)
 
     else
     {
-        TreeNode *tmp = ptr->right;
+        treeNode *tmp = ptr->right;
         *p=ptr = ptr->left;
         while (ptr->right != NULL)
         {
@@ -98,10 +98,10 @@ void deleteNode(TreeNode **p)
     
 }
 
-void delete (TreeNode **root, int key)
+void delete (treeNode **root, int key)
 {
     int done = 0;
-    TreeNode *p = *root, *prev = NULL;
+    treeNode *p = *root, *prev = NULL;
     if ((*root)->data == key)
     {
         done = 1;
@@ -146,7 +146,7 @@ void delete (TreeNode **root, int key)
     
 }
 
-void inorder(TreeNode *root)
+void inorder(treeNode *root)
 {
     if (root != NULL)
     {
@@ -158,7 +158,7 @@ void inorder(TreeNode *root)
 
 int main() {
 
-    TreeNode *root=NULL;
+    treeNode *root=NULL;
     insert(10, &root);
     insert(20, &root);
     insert(5, &root);

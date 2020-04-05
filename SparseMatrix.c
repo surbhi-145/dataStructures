@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #define MAX 10
 typedef int datatype;
-typedef enum{FAILURE,SUCCESS}statuscode;
+typedef enum{Failure,Success}statuscode;
 //Implement priority Queue with assign,access,addition,multiplication
 
 typedef struct Node 

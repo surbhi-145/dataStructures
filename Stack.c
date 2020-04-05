@@ -10,7 +10,7 @@ typedef struct
     int top;//stores index of last value inserted.
 }Stack;
 
-typedef enum{FAILURE, SUCCESS}statuscode;
+typedef enum{Failure, Success}statuscode;
 
 void initialize(Stack** sptr, int size)
 {
@@ -22,11 +22,11 @@ void initialize(Stack** sptr, int size)
 
 statuscode isFull(Stack* ptr)
 {
-    statuscode sc= FAILURE;
+    statuscode sc= Failure;
 
     if(ptr->top==ptr->capacity-1)
     {
-        sc=SUCCESS;
+        sc=Success;
     }
 
     return sc;
@@ -34,11 +34,11 @@ statuscode isFull(Stack* ptr)
 
 statuscode isEmpty(Stack* ptr)
 {
-    statuscode sc=FAILURE;
+    statuscode sc=Failure;
 
     if(ptr->top==-1)
     {
-        sc=SUCCESS;
+        sc=Success;
     }
 
     return sc;
@@ -46,10 +46,10 @@ statuscode isEmpty(Stack* ptr)
 
 statuscode push(Stack** sptr, datatype d)
 {
-    statuscode sc= SUCCESS;
+    statuscode sc= Success;
 
-    if(isFull(*sptr)==SUCCESS)
-    sc=FAILURE;
+    if(isFull(*sptr) == Success)
+    sc=Failure;
 
     else
     {
@@ -62,10 +62,10 @@ statuscode push(Stack** sptr, datatype d)
 
 statuscode pop(Stack** sptr, datatype* d)
 {
-    statuscode sc= SUCCESS;
+    statuscode sc= Success;
 
-    if(isEmpty(*sptr)==SUCCESS)
-    sc=FAILURE;
+    if(isEmpty(*sptr) == Success)
+    sc=Failure;
 
     else
     {
@@ -84,7 +84,7 @@ void main()
     initialize(&stack, 10);
     statuscode sc;
     sc=isFull(stack);
-    if(sc==SUCCESS)
+    if(sc == Success)
     {
         printf("Stack Full.\n");
     }
@@ -93,7 +93,7 @@ void main()
         printf("Stack not full.\n");
     }
     sc=isEmpty(stack);
-    if(sc==SUCCESS)
+    if(sc == Success)
     {
         printf("Stack Empty.\n");
     }
@@ -102,7 +102,7 @@ void main()
         printf("Stack not Empty.\n");
     }
     sc=push(&stack,12);
-    if(sc==SUCCESS)
+    if(sc == Success)
     {
         printf("%d\n",*((stack)->data+(stack)->top));
     }
@@ -113,7 +113,7 @@ void main()
     sc=push(&stack,10);
     sc=push(&stack,5);
     sc=pop(&stack,&d);
-    if(sc==SUCCESS)
+    if(sc == Success)
     {
         printf("%d\n",d);
     }
